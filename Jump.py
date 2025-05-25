@@ -4,6 +4,7 @@ from random import randint
 window = display.set_mode((500,600))
 window.fill((68, 227, 219))
 
+
 class GameSprite(sprite.Sprite):
     def __init__(self, player_speed, player_image, player_x, player_y):
         super().__init__()
@@ -32,7 +33,7 @@ class Player(GameSprite):
             gs.rect.x -= 10
         if keys_pressed[K_d] and gs.rect.x < 400:
             gs.rect.x += 10
-        if keys_pressed[K_SPACE] and gs.rect.y > 1:
+        if keys_pressed[K_SPACE]:
             gs.rect.y -= 10
 
 lost = 0
@@ -59,14 +60,15 @@ platforms = sprite.Group()
 
 gs = Player(5, 'player.png', 220, 250)
 
+
 plf = Platform(randint(2,3), 'plf.png', 210, 245)
 
-platf_1 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 50))
-platf_2 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 50))
-platf_3 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 50))
-platf_4 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 50))
-platf_5 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 50))
-platf_6 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 50))
+platf_1 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 40))
+platf_2 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 40))
+platf_3 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 40))
+platf_4 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 40))
+platf_5 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 40))
+platf_6 = Platform(randint(1,2), 'plf.png', randint(100, 400), randint(10, 40))
 
 platforms.add(platf_1, platf_2, platf_3, platf_4, platf_5, platf_6)
 
@@ -79,14 +81,13 @@ while game:
             game = False
 
 
-
+    sprite_list = sprite.groupcollide(platforms, gs, True, True)
 
     gs.reset()
     gs.update()
 
     platforms.update()
     platforms.draw(window)
-
 
 
     clock.tick(fps)
